@@ -2,7 +2,7 @@ pipeline {
     agent any
 
      tools {
-        gradle 'Gradle'  // Jenkins에서 설정한 Gradle 설치 이름
+        gradle 'Default Gradle'  // Jenkins에서 설정한 Gradle 설치 이름
     }
 
     stages {
