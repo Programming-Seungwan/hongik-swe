@@ -28,6 +28,7 @@ pipeline {
                     def testDir = "${env.WORKSPACE}/build/classes/java/test"
                     def testSourceDir = "${env.WORKSPACE}/src/test/java/org/example"
                     def testOutputDir = "${env.WORKSPACE}/test-output"
+                    def buildDir = "${env.WORKSPACE}/build/classes/java/main"
                     sh "mkdir -p ${testDir} ${testOutputDir}"
                     sh "javac -cp ${buildDir} -d ${testDir} ${testSourceDir}/*.java"
 
