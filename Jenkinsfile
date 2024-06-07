@@ -8,7 +8,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Git 리포지토리에서 코드를 체크아웃
                 checkout scm
             }
         }
