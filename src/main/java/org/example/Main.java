@@ -11,8 +11,8 @@ public class Main {
         manager.addBook(new Book(3L, "Book Three", "Author C", 2022));
 
         try {
-            // 책을 ID로 검색
-            Book foundBook = manager.searchBook(2L);
+            // 이진 탐색을 통해 책을 검색
+            Book foundBook = manager.search_bs(2L);
             System.out.println("찾은 책: " + foundBook.getTitle());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -22,7 +22,7 @@ public class Main {
             // 책을 삭제
             manager.deleteBook(2L);
             // 삭제된 책을 다시 검색 시도
-            Book foundBook = manager.searchBook(2L);
+            Book foundBook = manager.search_bs(2L);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
