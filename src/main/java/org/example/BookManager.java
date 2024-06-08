@@ -41,4 +41,25 @@ public class BookManager {
         Book removedBook = store.remove(bookId);
         sortedBooks.remove(removedBook);
     }
+
+    // 책 ID로 이진 탐색을 통해 책을 검색하는 메서드
+    public Book search_bs(Long bookId) {
+        int left = 0;
+        int right = sortedBooks.size() - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            Long midId = sortedBooks.get(mid).getId();
+
+            if (midId.equals(bookId)) {
+                return sortedBooks.get(mid);
+            } else if (midId < bookId) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        throw new IllegalArgumentException("해당 ID를 가진 책이 존재하지 않습니다.");
+    }
 }
