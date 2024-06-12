@@ -23,6 +23,23 @@ pipeline {
             steps {
                 // Gradle을 사용하여 테스트를 실행
                 sh 'gradle test'
+
+                // 테스트 결과를 텍스트 파일로 변환
+                script {
+                    // XML 결과 파일을 읽고 텍스트 파일로 변환
+                    def testResultsDir = 'build/test-results/test'
+                    def textOutputFile = "${testResultsDir}/test-results.txt"
+
+                    // Groovy script to convert XML to Text
+                    sh """
+                    mkdir -p ${testResultsDir}
+                    echo "Test Results:" > ${textOutputFile}
+                    for file in ${testResultsDir}/*.xml; do
+                        echo "Parsing: \$file" >> ${textOutputFile}
+                        xmllint --format \$file | grep -E '<testcase|<failure|<skipped' >> ${textOutputFile}
+                    done
+                    """
+                }
             }
         }
 
@@ -30,6 +47,8 @@ pipeline {
             steps {
                 // Gradle 테스트 결과를 아카이브
                 archiveArtifacts artifacts: '**/build/test-results/test/*.xml', allowEmptyArchive: true
+                // 변환된 테스트 결과를 아카이브
+                archiveArtifacts artifacts: '**/build/test-results/test/test-results.txt', allowEmptyArchive: true
             }
         }
     }
