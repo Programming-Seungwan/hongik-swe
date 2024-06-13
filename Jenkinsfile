@@ -40,6 +40,11 @@ pipeline {
                     done
                     """
                 }
+
+                // 텍스트 파일을 워크스페이스의 루트로 복사
+                script {
+                    sh 'cp build/test-results/test/test-results.txt ${WORKSPACE}/test-results.txt'
+                }
             }
         }
 
